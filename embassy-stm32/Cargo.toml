@@ -1,6 +1,6 @@
 [package]
 name = "embassy-stm32"
-version = "0.6.0"
+version = "0.6.2"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 description = "Embassy Hardware Abstraction Layer (HAL) for ST STM32 series microcontrollers"
