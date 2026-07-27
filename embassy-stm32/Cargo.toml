@@ -1,6 +1,6 @@
 [package]
 name = "embassy-stm32"
-version = "0.6.0"
+version = "0.7.0"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 description = "Embassy Hardware Abstraction Layer (HAL) for ST STM32 series microcontrollers"
@@ -155,17 +155,17 @@ features = ["defmt", "unstable-pac", "exti", "time-driver-any", "time", "stm32h7
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
-embassy-sync = { version = "0.8.0", path = "../embassy-sync" }
-embassy-time = { version = "0.5.1", path = "../embassy-time", optional = true }
-embassy-time-driver = { version = "0.2.2", path = "../embassy-time-driver", optional = true }
-embassy-time-queue-utils = { version = "0.3.2", path = "../embassy-time-queue-utils", optional = true }
-embassy-futures = { version = "0.1.2", path = "../embassy-futures" }
-embassy-hal-internal = { version = "0.5.0", path = "../embassy-hal-internal", features = ["cortex-m", "prio-bits-4"] }
-embassy-embedded-hal = { version = "0.6.0", path = "../embassy-embedded-hal", default-features = false }
-embassy-net-driver = { version = "0.2.0", path = "../embassy-net-driver" }
-embassy-usb-driver = { version = "0.2.2", path = "../embassy-usb-driver" }
-embassy-usb-synopsys-otg = { version = "0.4.0", path = "../embassy-usb-synopsys-otg" }
-embassy-executor = { version = "0.10.0", path = "../embassy-executor", optional = true }
+embassy-sync = { version = "0.8.0" }
+embassy-time = { version = "0.5.1", optional = true }
+embassy-time-driver = { version = "0.2.2", optional = true }
+embassy-time-queue-utils = { version = "0.3.2", optional = true }
+embassy-futures = { version = "0.1.2" }
+embassy-hal-internal = { version = "0.6.0", features = ["cortex-m", "prio-bits-4"], registry = "kellnr" }
+embassy-embedded-hal = { version = "0.6.0", default-features = false }
+embassy-net-driver = { version = "0.2.1", registry = "kellnr" }
+embassy-usb-driver = { version = "0.2.2" }
+embassy-usb-synopsys-otg = { version = "0.4.0" }
+embassy-executor = { version = "0.10.0", optional = true }
 
 embedded-hal-02 = { package = "embedded-hal", version = "0.2.7", features = ["unproven"] }
 embedded-hal-1 = { package = "embedded-hal", version = "1.0" }
@@ -212,12 +212,12 @@ aligned = "0.4.3"
 heapless = "0.9.3"
 once_cell = { version = "1.21.4", default-features = false, features=["critical-section"] }
 
-# stm32-metapac = { version = "21" }
-stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-75cfa09e93a6c7275d14ecb5c8b5e95b2ab2dae2" }
+stm32-metapac = { version = "22", registry = "kellnr" }
+# stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-75cfa09e93a6c7275d14ecb5c8b5e95b2ab2dae2" }
 
 [build-dependencies]
-# stm32-metapac = { version = "21", default-features = false, features = ["metadata"]}
-stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-75cfa09e93a6c7275d14ecb5c8b5e95b2ab2dae2" , default-features = false, features = ["metadata"] }
+stm32-metapac = { version = "22", default-features = false, features = ["metadata"], registry = "kellnr" }
+# stm32-metapac = { git = "https://github.com/embassy-rs/stm32-data-generated", tag = "stm32-data-75cfa09e93a6c7275d14ecb5c8b5e95b2ab2dae2" , default-features = false, features = ["metadata"] }
 
 proc-macro2 = "1.0.107"
 quote = "1.0.47"
