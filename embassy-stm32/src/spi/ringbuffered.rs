@@ -11,7 +11,7 @@ use futures_util::future::select;
 
 use super::mode::Slave;
 use super::{Config, Error, Info, RegsExt, Spi, Word, check_error_flags, reconfigure, set_rxdmaen};
-use crate::dma::ReadableRingBuffer;
+use crate::dma::{ReadableRingBuffer, RingBufferError};
 use crate::exti::{Channel, ExtiInput, InterruptHandler};
 use crate::gpio::{Flex, Pin};
 use crate::interrupt::typelevel::Binding;
@@ -316,15 +316,7 @@ impl embedded_io_async::Read for RingBufferedSpiRx<'_, u8> {
 impl<W: Word> ReadReady for RingBufferedSpiRx<'_, W> {
     fn read_ready(&mut self) -> Result<bool, Self::Error> {
         let len = self.ring_buf.len().map_err(|e| match e {
-            crate::dma::ringbuffer::Error::Overrun => Error::Overrun,
-            crate::dma::ringbuffer::Error::DmaUnsynced => {
-                error!(
-                    "Ringbuffer error: DmaUNsynced, driver implementation is
-                    probably bugged please open an issue"
-                );
-                // we report this as overrun since its recoverable in the same way
-                Error::Overrun
-            }
+            RingBufferError::Overrun => Error::Overrun,
         })?;
         Ok(len > 0)
     }

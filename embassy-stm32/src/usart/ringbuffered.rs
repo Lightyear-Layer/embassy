@@ -10,7 +10,7 @@ use futures_util::future::{Either, select};
 use super::{
     Config, ConfigError, Error, Info, State, UartRx, clear_interrupt_flags, flush, rdr, reconfigure, set_baudrate, sr,
 };
-use crate::dma::ReadableRingBuffer;
+use crate::dma::{ReadableRingBuffer, RingBufferError};
 use crate::gpio::Flex;
 use crate::mode::Async;
 use crate::rcc::WakeGuard;
@@ -413,15 +413,7 @@ impl embedded_hal_nb::serial::ErrorType for RingBufferedUartRx<'_> {
 impl ReadReady for RingBufferedUartRx<'_> {
     fn read_ready(&mut self) -> Result<bool, Self::Error> {
         let len = self.ring_buf.len().map_err(|e| match e {
-            crate::dma::ringbuffer::Error::Overrun => Self::Error::Overrun,
-            crate::dma::ringbuffer::Error::DmaUnsynced => {
-                error!(
-                    "Ringbuffer error: DmaUNsynced, driver implementation is
-                    probably bugged please open an issue"
-                );
-                // we report this as overrun since its recoverable in the same way
-                Self::Error::Overrun
-            }
+            RingBufferError::Overrun => Self::Error::Overrun,
         })?;
         Ok(len > 0)
     }
