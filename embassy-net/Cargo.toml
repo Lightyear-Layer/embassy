@@ -1,6 +1,6 @@
 [package]
 name = "embassy-net"
-version = "0.9.1"
+version = "0.10.0"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 description = "Async TCP/IP network stack for embedded systems"
@@ -145,10 +145,10 @@ packet-log = ["xarxa/packet-log"]
 defmt = { version = "1.0.1", optional = true }
 log = { version = "0.4.14", optional = true }
 
-xarxa = { git = "https://github.com/embassy-rs/xarxa", rev = "8f6f33b131deb9ff3290e0e01079537e1ed7b2ad", default-features = false, features = ["async"] }
-xarxa-driver = { git = "https://github.com/embassy-rs/xarxa", rev = "8f6f33b131deb9ff3290e0e01079537e1ed7b2ad", default-features = false, features = ["async"] }
-embassy-time = { version = "0.5.1", path = "../embassy-time" }
-embassy-sync = { version = "0.8.0", path = "../embassy-sync" }
+xarxa = { version = "0.1.0", registry = "kellnr" }
+xarxa-driver = { version = "0.2.0", default-features = false, features = ["async"], registry = "kellnr" }
+embassy-time = { version = "0.5.3", path = "../embassy-time", registry = "kellnr" }
+embassy-sync = { version = "0.9.0", path = "../embassy-sync", registry = "kellnr" }
 embedded-io-async = { version = "0.7.0" }
 
 heapless = { version = "0.9", default-features = false }
